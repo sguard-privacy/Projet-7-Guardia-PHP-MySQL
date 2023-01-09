@@ -32,30 +32,29 @@
             <div class="col-md-7 col-lg-8">
                 <div class="blog_list mb_60">
                     <?php
-                    $query = "SELECT * FROM post ORDER BY id DESC";
-                    $post = $pdoBLOG->query(PDO::FETCH_ASSOC);
-                    if ($post) {
-                        while ($result = $post->fetch_assoc()) {
-                    ?>
-                            <div class="blog_item mb_30 wow animated slideInUp">
-                                <div class="blog_img overlay_one"><img src="admin/<?php echo $result['image']; ?>" alt="image"></div>
-                                <div class="blog_content bg_white">
-                                    <div class="blog_title">
-                                        <a class="color_primary" href="post_details.php?id=<?php echo $result['id'];  ?>">
-                                            <h5><?php echo $result['title'];  ?></h5>
-                                        </a>
-                                    </div>
-                                    <p class="mt_15 mb_30"> <?php echo $format->textShorten($result['body']); ?></p>
+                    $post = $pdoBLOG->query ("SELECT * FROM post ORDER BY id DESC");
 
-                                    <div class="admin">
-                                        <!--                                <img src="images/about/02.jpg" alt="image">-->
-                                        <span class="color_white">By - <?php echo $result['author']; ?></span>
-                                    </div>
-                                    <div class="date float-right color_primary"><?php echo $format->formatDate($result['date']);  ?></div>
-                                </div>
-                            </div>
-                        <?php  } ?> <!--end while-->
-                    <?php  } ?>
+
+                    while($result = $post->fetch(PDO::FETCH_ASSOC)) {
+
+                            echo "<div class=\"blog_item mb_30 wow animated slideInUp\">";
+                                echo "<div class=\"blog_img overlay_one\"><img src=\"<?php echo $result[image]; ?>\" alt=\"image\"></div>";
+                                echo "<div class=\"blog_content bg_white\">";
+                                    echo "<div class=\"blog_title\">";
+                                        echo "<a class=\"color_primary\" href=\"post_details.php?id=<?php echo $result[id];  ?>\">";
+                                            echo "<h5><?php echo $result[title];  ?></h5>";
+                                        echo "</a>";
+                                    echo "</div>";
+                                    echo "<p class=\"mt_15 mb_30\"><?php echo $result[body]; ?></p>";
+
+                                    echo "<div class=\"admin\">";
+                                        echo "<img src=\"images/about/02.jpg\" alt=\"image\">";
+                                        echo "<span class=\"color_white\">By - <?php echo $result[author]; ?></span>";
+                                    echo "</div>";
+                                    echo "<div class=\"date float-right color_primary\"><?php echo $result[date];  ?></div>";
+                                echo "</div>";
+                            echo "</div>";
+                           } ?>
                 </div>
             </div>
             <?php

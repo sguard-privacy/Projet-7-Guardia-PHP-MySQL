@@ -23,14 +23,14 @@ function executeRequete($requete, $parametres = array()) {  // utile pour toutes
     }// fin foreach
 }// fin fonction
 
-function secureInput($secure) {
-    $secure = trim($secure);
-    $secure = stripslashes($secure);
-    // $secure = mysqli_real_escape_string($secure);
+// function secureInput($secure) {
+//     $secure = trim($secure);
+//     $secure = stripslashes($secure);
+//     // $secure = mysqli_real_escape_string($secure);
 
-    return $secure;
+//     return $secure;
 
-}
+// }
 
 
 // FONCTION POUR VÉRIFIER QUE LE MEMBRE EST CONNECTÉ
@@ -43,22 +43,22 @@ function estConnecte() {
 }
 
 // FONCTION POUR VÉRIFIER QUE LE MEMBRE EST ADMIN
-function estAdmin() {
-    if (estConnecte() && $_SESSION['membre']['admin']== 1 ) {
-        return true;
-    } else {
-        return false;
-    }
-}
+// function estAdmin() {
+//     if (estConnecte() && $_SESSION['membre']['admin']== 1 ) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
 
-// FONCTION POUR VÉRIFIER QUE LE MEMBRE EST SUPER ADMIN
-function estSuperAdmin() {
-    if (estConnecte() && $_SESSION['membre']['admin']== 2 ) {
-        return true;
-    } else {
-        return false;
-    }
-}
+// // FONCTION POUR VÉRIFIER QUE LE MEMBRE EST SUPER ADMIN
+// function estSuperAdmin() {
+//     if (estConnecte() && $_SESSION['membre']['admin']== 2 ) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
 
 
 ?>

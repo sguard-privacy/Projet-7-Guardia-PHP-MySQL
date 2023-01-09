@@ -25,19 +25,17 @@
             <div class="category_sidebar">
             <?php
                 //                Show category & count post 
-                $category = "SELECT category.name,category.category_id,COUNT(post.id) FROM post
+                $category = $pdoBLOG->query ("SELECT category.name,category.category_id,COUNT(post.id) FROM post
                             RIGHT JOIN category ON post.category_id = category.category_id
-                            GROUP BY name";
-                $reseau = $pdoBLOG->select($query);
-                if ($category) {
-                    while ($result = $reseau->fetch_assoc()) {
+                            GROUP BY name");
+
+                    while($result = $category->fetch(PDO::FETCH_ASSOC)) {
                 ?>
                         <ul>
                             <li><a href="posts.php?category=<?php echo $result['category_id']; ?>"><?php echo $result['name']; ?></a>
                                 <span><?php echo $result['COUNT(post.id)'];  ?> </span>
                             </li>
                         <?php  } ?> <!--end while-->
-                    <?php  } ?>
                         </ul>
             </div>
         </div>
@@ -46,22 +44,21 @@
             <div class="recent_post">
                 <ul>
                     <?php
-                    $query = "SELECT * FROM post ORDER BY id DESC limit 5";
-                    $post = $pdoBLOG->select($query);
-                    if ($post) {
-                        while ($result = $post->fetch_assoc()) {
-                    ?>
-                            <li class="mb_30">
-                                <a href="post_details.php?id=<?php echo $result['id']; ?>">
-                                    <div class="post_img"><img src="admin/<?php echo $result['image']; ?>" alt="image"></div>
-                                    <div class="recent_post_content">
-                                        <h6><?php echo $format->textShorten($result['body'], 60); ?></h6>
-                                        <span class="color_gray"><?php echo $format->formatDate($result['date']); ?></span>
-                                    </div>
-                                </a>
-                            </li>
-                        <?php  } ?> <!--end while-->
-                    <?php  } ?>
+                    $post = $pdoBLOG->query ("SELECT * FROM post ORDER BY id DESC limit 5");
+
+                        while($result = $category->fetch(PDO::FETCH_ASSOC)) {
+
+                            echo "<li class=\"mb_30\">";
+                            echo    "<a href=\"post_details.php?id=<?php echo $result[id]; ?>\">";
+                            echo        "<div class=\"post_img\"><img src=\"admin/<?php echo $result[image]; ?>\" alt=\"image\"></div>";
+                            echo        "<div class=\"recent_post_content\">";
+                            echo    "<h6><?php echo $format->textShorten($result[body], 60); ?></h6>";
+                            echo        "<span class=\"color_gray\"><?php echo $format->formatDate($result[date]); ?></span>";
+                            echo    "</div>";
+                            echo    "</a>";
+                            echo "</li>";
+                  } ?> <!--end while-->
+
                 </ul>
             </div>
         </div>

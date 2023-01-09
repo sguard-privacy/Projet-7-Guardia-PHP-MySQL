@@ -70,7 +70,7 @@ ini_set("display_errors", 1);
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item"><a class="nav-link" href="index.php">Accueil</a></li>
                                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
-                                <li class="nav-item"><a class="nav-link" href="../../Blog_soutenance/admin/login.php">Connexion</a></li>
+                                <li class="nav-item"><a class="nav-link" href="../soutenancephp/admin/login.php">Connexion</a></li>
                             </ul>
                         </div>
                     </nav>

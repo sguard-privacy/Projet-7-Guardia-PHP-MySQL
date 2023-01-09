@@ -1,15 +1,21 @@
-<?php include "../classes/Session.php";
-Session::checkSession();
-?>
-<?php include "../config/config.php" ?>
-<?php include "../db/Database.php" ?>
-<?php include "../classes/format.php" ?>
-
 <?php
-$db = new Database();
-$format = new Format();
+
+require_once '../includes/bdd.php';
+require_once '../includes/fonction.php';
+
+if (estconnecte()){
+    $id_membre = $_SESSION['user']['id'];
+    // debug($_SESSION);
+  }
+  
+  
+if (estConnecte()) {
+header('location:login.php');
+}
 
 ?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -72,7 +78,7 @@ $format = new Format();
                     <div class="floatleft marginleft10">
                         <?php
                         if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-                            Session::destroy();
+                            // Session::destroy();
                         }
                         ?>
                         <ul class="inline-ul floatleft">
