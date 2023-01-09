@@ -6,15 +6,15 @@ $message = '';
 if (isset($_GET['action']) && $_GET['action'] == 'deconnexion') { // si il existe action qui contient 'deconnexion' dans l'url
     unset($_SESSION['membre']); // on supprime le membre de la session (le contenu du tableau indice membre)
     $message = '<div class="alert alert-success">Vous êtes Déconnecté</div>';// message de déconnexion cf echo plus bas
-    //debug($_SESSION);
+    // debug($_SESSION);
 }
-// redirection vers la page admin
+// redirection vers la page profil
  if (estConnecte()) {
   header('location:index.php');
   exit();
 }
 // traitement du formulaire de connexion
-debug($_POST);
+  // debug($_POST);
 
 if(!empty($_POST)) {
     if (empty($_POST['username'])) { //si c'est vide - 0 ou null c'est FALSE
@@ -42,10 +42,10 @@ if(!empty($_POST)) {
                 // debug($_SESSION);
                 header('location:index.php');//VOIR
                 exit();
-            } else {
+            }else {
               $contenu .='<div class="alert alert-danger">Erreur sur les identifiants !</div>';
             }
-        } else {
+        }else {
           $contenu .='<div class="alert alert-danger">Erreur sur les identifiants !</div>';
         }
     }
@@ -63,7 +63,7 @@ if(!empty($_POST)) {
 <body>
     <div class="container">
         <section id="content">
-            <form action="" method="post">
+            <form action="" method="POST">
                 <h1>Connexion Administrateur</h1>
                 <div>
                     <input type="text" placeholder="Identifiant" name="username" />

@@ -3,15 +3,16 @@
 require_once '../includes/bdd.php';
 require_once '../includes/fonction.php';
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 if (estconnecte()){
-    $id_membre = $_SESSION['user']['id'];
-    // debug($_SESSION);
+    $id = $_SESSION['user']['id'];
+    debug($_SESSION);
+  } else {
+    header('location:login.php');
   }
   
-  
-if (estConnecte()) {
-header('location:login.php');
-}
 
 ?>
 
