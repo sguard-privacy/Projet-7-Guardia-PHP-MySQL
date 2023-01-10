@@ -1,39 +1,11 @@
-<?php include "includes/header.php" ?>
-<?php
-//            Contact Form Validation
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = $format->validation($_POST['name']);
-    $email = $format->validation($_POST['email']);
-    $subject = $format->validation($_POST['subject']);
-    $message = $format->validation($_POST['message']);
+<?php 
+require_once "includes/bdd.php";
+require_once "includes/fonction.php";
+require_once "includes/header.php";
 
-    $name = mysqli_real_escape_string($db->link, $name);
-    $email = mysqli_real_escape_string($db->link, $email);
-    $subject = mysqli_real_escape_string($db->link, $subject);
-    $message = mysqli_real_escape_string($db->link, $message);
-
-    $error = '';
-    if (empty($name)) {
-        $error = 'Votre nom doit être rempli';
-    } elseif (empty($email)) {
-        $error = "Votre adresse email doit être remplie";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = " Adresse email invalide";
-    } elseif (empty($subject)) {
-        $error = "Votre objet doit être rempli";
-    } elseif (empty($message)) {
-        $error = "Votre message doit être rempli";
-    } else {  /* After validation, message sent into database*/
-        $query = "INSERT INTO contact(name, email, subject, message) VALUES ('$name', '$email', '$subject', '$message')";
-        $send_message = $db->crate($query);
-        if ($send_message) {
-            $msg = " Votre message a été envoyé avec succès";
-        } else {
-            $error = "Votre message n'a pas été envoyé";
-        }
-    }
-}
 ?>
+
+
 
 
 <!--    Page Banner Start
