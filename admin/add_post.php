@@ -1,6 +1,6 @@
 ﻿<?php
-// Inclure le fichier header.php
-// Inclure le fichier sidebar.php
+require_once 'includes/header.php';
+require_once 'includes/sidebar.php';
 ?>
 <div class="grid_10">
 
@@ -101,5 +101,5 @@
 <!-- Load TinyMCE -->
 <script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
 <?php
-// Inclure le fichier footer.php
+require_once 'includes/footer.php';
 ?>

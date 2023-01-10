@@ -1,6 +1,6 @@
 ﻿<?php
-// Inclure le fichier header.php
-// Inclure le fichier sidebar.php
+require_once 'includes/header.php';
+require_once 'includes/sidebar.php';
 ?>
 <div class="grid_10">
     <div class="box round first grid">
@@ -48,5 +48,5 @@
     </div>
 </div>
 <?php
-// Inclure le fichier footer.php
+require_once 'includes/footer.php';
 ?>

@@ -1,6 +1,6 @@
 <?php
-// Inclure le fichier header.php
-// Inclure le fichier sidebar.php
+require_once 'includes/header.php';
+require_once 'includes/sidebar.php';
 ?>
 
 <?php
