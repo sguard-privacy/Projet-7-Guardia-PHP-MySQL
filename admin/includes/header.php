@@ -99,7 +99,7 @@ if (estconnecte()){
                 <li class="ic-dashboard"><a href="index.php"><span>Tableau de bord</span></a> </li>
                 <!--            <li class="ic-form-style"><a href=""><span>User Profile</span></a></li>-->
                 <!--            <li class="ic-typography"><a href="changepassword.php"><span>Change Password</span></a></li>-->
-                <li class="ic-grid-tables"><a href="inbox.php"><span>Boite de réception
+                <li class="ic-grid-tables"><a href="#"><span>Boite de réception
                   <?php
                             //                count unseen messages
                          //    $message = $pdoBLOG->query("SELECT * FROM contact WHERE status ='0'");

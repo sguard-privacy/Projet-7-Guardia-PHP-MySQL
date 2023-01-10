@@ -62,7 +62,7 @@ ini_set("display_errors", 1);
                         while($info = $title->fetch(PDO::FETCH_ASSOC)) {
 
 
-                            echo "<a class=\"navbar-brand p_0\" href=\"index.php#top\"><img class=\"nav-logo\" src=\"admin/$info[logo]\" style=\"height: 50px; width: 60px;\" alt=\"logo\"> <span><?php echo $info[title] ?></span></a>";
+                            echo "<a class=\"navbar-brand p_0\" href=\"index.php#top\"><img class=\"nav-logo\" src=\"admin/$info[logo]\" style=\"height: 50px; width: 60px;\" alt=\"logo\"> <span>$info[title]</span></a>";
                          }
                          ?>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>

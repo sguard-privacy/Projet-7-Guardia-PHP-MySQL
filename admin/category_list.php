@@ -6,17 +6,15 @@ require_once 'includes/sidebar.php';
     <div class="box round first grid">
         <h2>Category List</h2>
         <?php
-        // Si la méthode de requête est GET
-        // Alors
-        //     Récupérer la valeur de delid
-        //     Supprimer la catégorie de la table category
-        //     Si la catégorie est supprimée
-        //         Alors
-        //             Afficher un message de succès
-        //         Sinon
-        //             Afficher un message d'erreur
-        ?>
-        <div class="block">
+              $requete = $pdoBLOG->query( " SELECT * FROM category " );
+            //   debug($requete);
+            //   $nbr_category = $requete->rowCount();
+            //   debug($nbr_produits); 
+            
+
+              while ( $category = $requete->fetch( PDO::FETCH_ASSOC )) { ?>
+              
+              <div class="block">
             <table class="data display datatable" id="example">
                 <thead>
                     <tr>
@@ -27,19 +25,35 @@ require_once 'includes/sidebar.php';
                 </thead>
                 <tbody>
                     <?php
-                    // Récupérer toutes les catégories de la table category
-                    // Tant que la catégorie est récupérée
-                    //     Afficher la catégorie
-                    ?>
+                // 6 SUPPRESSION D'UNE CATEGORY
+                // debug($_GET);
+                if (isset($_GET['action']) && $_GET['action'] == 'supprimer' && isset($_GET['category_id'])) {
+                $supprimer = $pdoBLOG->prepare( " DELETE FROM category WHERE category_id = :category_id " );
+
+                $supprimer->execute(array(
+                    ':category_id' => $_GET['category_id']
+                ));
+
+                if ($supprimer->rowCount() == 0) {
+                    $contenu .= '<div class="alert alert-danger"> Erreur de suppression</div>';
+                } else {
+                    $contenu .= '<div class="alert alert-success"> Membre supprimé</div>';
+                }
+                }
+
+                ?>
                     <tr class="odd gradeX">
-                        <td></td>
-                        <td></td>
-                        <td><a href="edit_category.php?catid=">Modifier</a>
-                            || <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer?')" href="">Supprimer</a></td>
+                        <td><?php echo $category['category_id']; ?></td>
+                        <td><?php echo $category['name']; ?></td>
+                        <td><a href="edit_category.php?category_id=<?php echo $category['category_id']; ?>">Modifier</a>
+                            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer?')" href="?action=supprimer&category_id=<?php echo $category['category_id']; ?>">Supprimer</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+                <!-- fermeture de la boucle -->
+            <?php   }
+            ?>
     </div>
 </div>
 <script type="text/javascript">

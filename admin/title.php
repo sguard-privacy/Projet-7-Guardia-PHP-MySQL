@@ -24,6 +24,24 @@ require_once 'includes/sidebar.php';
         <!--            For Update website Title & Logo-->
         <?php
 
+            if ( !empty($_POST) ) {//not empty
+                // debug($_POST);
+                $_POST['title'] = htmlspecialchars($_POST['title']);// pour se prémunir des failles et des injections SQL
+            
+                $logo = '';
+                if(!empty($_FILES['logo']['name'])) {
+                   $logo = 'uploads/' .$_FILES['logo']['name'];
+                   copy($_FILES['logo']['tmp_name'], '' .$logo);
+                   } // fin du traitement photo
+
+                $resultat = $pdoBLOG->prepare( " UPDATE title SET title = :title, logo = :logo " );// requete préparée avec des marqueurs
+            
+                $resultat->execute( array(
+                    ':title' => $_POST['title'],
+                    ':logo' => $logo,
+                ));
+            }
+
         ?>
 
 
@@ -49,7 +67,7 @@ require_once 'includes/sidebar.php';
                             echo "<label>Télécharger le logo</label>";
                         echo "</td>";
                         echo "<td>";
-                            echo "<input type=\"file\" name=\"logo\" />";
+                            echo "<input type=\"file\" name=\"logo\" accept=\"image/png, image/jpeg\"/>";
                         echo "</td>";
                     echo "</tr>";
                     echo "<tr>";
@@ -61,13 +79,13 @@ require_once 'includes/sidebar.php';
                     echo "</tr>";
                 echo "</table>";
             echo "</form>";
+        echo "</div>";
+            echo "<div class=\"right\">";
+                echo "<img src=\"$update[logo]\" alt=\"logo\">";
+            echo "</div>";
 
             }
                 ?>
-            </div>
-            <div class="right">
-                <img src="" alt="logo">
-            </div>
         </div>
     </div>
 </div>

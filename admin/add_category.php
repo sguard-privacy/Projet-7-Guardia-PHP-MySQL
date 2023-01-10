@@ -8,18 +8,24 @@ require_once 'includes/sidebar.php';
         <h2>Ajouter une nouvelle catégorie</h2>
         <div class="block copyblock">
             <?php
-             $insertion = executeRequete(" INSERT INTO category (name) VALUES (:name) ",
+           if (!empty($_POST)) {
+            // var_dump($_POST);
+            $_POST['name'] = htmlspecialchars($_POST['name']);
 
-             array(
-                 ':name' => $_POST['name'],
-              ));
          
+            $insertion = executeRequete(" INSERT INTO category (name) VALUES (:name) ",
+        
+            array(
+                ':name' => $_POST['name'],
+
+             ));
+        }
             ?>
-            <form method="post">
+            <form method="POST">
                 <table class="form">
                     <tr>
                         <td>
-                            <input type="text" name="name" placeholder="Entrez le nom de la catégorie..." class="medium" />
+                            <input type="text" name="name" required placeholder="Entrez le nom de la catégorie..." class="medium" />
                         </td>
                     </tr>
                     <tr>

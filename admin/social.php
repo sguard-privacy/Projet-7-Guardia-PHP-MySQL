@@ -36,15 +36,16 @@ if ( !empty($_POST) ) {//not empty
     <div class="box round first grid">
         <h2>Mettre à jour les médias sociaux</h2>
         <!--   For update social media -->
-
-            <form action="" method="POST">
-                <table class="form">
-                    <tr>
-                        <td>
                         <?php
             $social = $pdoBLOG->query ( "SELECT * FROM social WHERE id");
 
             while($link = $social->fetch(PDO::FETCH_ASSOC)) {
+
+
+            echo "<form action=\"\" method=\"POST\">";
+            echo "<table class=\"form\">";
+                echo "<tr>";
+                    echo "<td>";
 
                             echo "<label>Facebook</label>";
                             echo "</td>";
@@ -92,11 +93,12 @@ if ( !empty($_POST) ) {//not empty
                             echo "<td>";
                             echo "<input type=\"submit\" name=\"submit\" Value=\"Modifier\" />";
                             echo "</td>";
+                            echo "</tr>";
+                            echo "</table>";
+                        echo "</form>";
                     }
                     ?>
-                    </tr>
-                </table>
-            </form>
+
 
         </div>
     </div>

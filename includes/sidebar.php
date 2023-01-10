@@ -10,11 +10,11 @@
                         while($reseau = $social->fetch(PDO::FETCH_ASSOC)) {
 
 
-                            echo "<li><a href=\"<?php echo $reseau[facebook] ?>\" target=\"_blank\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>";
-                            echo "<li><a href=\"<?php echo $reseau[github] ?>\" target=\"_blank\"><i class=\"fa fa-github\" aria-hidden=\"true\"></i></a></li>";
-                            echo "<li><a href=\"<?php echo $reseau[skype] ?>\" target=\"_blank\"><i class=\"fa fa-skype\" aria-hidden=\"true\"></i></a></li>";
-                            echo "<li><a href=\"<?php echo $reseau[linkedin] ?>\" target=\"_blank\"><i class=\"fa fa-linkedin\" aria-hidden=\"true\"></i></a></li>";
-                            echo "<li><a href=\"<?php echo $reseau[google] ?>\" target=\"_blank\"><i class=\"fa fa-google\" aria-hidden=\"true\"></i></a></li>";
+                            echo "<li><a href=\"$reseau[facebook]\" target=\"_blank\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>";
+                            echo "<li><a href=\"$reseau[github]\" target=\"_blank\"><i class=\"fa fa-github\" aria-hidden=\"true\"></i></a></li>";
+                            echo "<li><a href=\"$reseau[skype]\" target=\"_blank\"><i class=\"fa fa-skype\" aria-hidden=\"true\"></i></a></li>";
+                            echo "<li><a href=\"$reseau[linkedin]\" target=\"_blank\"><i class=\"fa fa-linkedin\" aria-hidden=\"true\"></i></a></li>";
+                            echo "<li><a href=\"$reseau[google]\" target=\"_blank\"><i class=\"fa fa-google\" aria-hidden=\"true\"></i></a></li>";
                          }
                          ?>
                 </ul>

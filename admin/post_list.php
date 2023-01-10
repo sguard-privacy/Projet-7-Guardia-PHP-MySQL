@@ -22,25 +22,28 @@ require_once 'includes/sidebar.php';
                 </thead>
                 <tbody>
                     <?php
-                    // Récupérer les données de la table post
-                    // Tant que les données sont récupérées
-                    //     Afficher les données
-                    ?>
+                      $select = $pdoBLOG->query( " SELECT * FROM post, category " );
+                      
+          
+                        while ( $post = $select->fetch( PDO::FETCH_ASSOC )) { ?>
+                    
                     <tr class="odd gradeX">
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><img src="" height="40px" width="80px" alt=""></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><?php echo $post['title']; ?></td>
+                        <td><?php echo $post['body']; ?></td>
+                        <td><?php echo $post['category_id']; ?></td>
+                        <td><img src="<?php echo $post['image']; ?>" height="40px" width="80px" alt="photos du post"></td>
+                        <td><?php echo $post['author']; ?></td>
+                        <td><?php echo $post['tags']; ?></td>
+                        <td><?php echo $post['date']; ?></td>
                         <td><a href="edit_post.php?edit_postid=">Modifier</a>
                             || <a onclick="return confirm('Etes vous sur de vouloir supprimer ?')" href="delete_post.php?del_postid=">Supprimer</a></td>
+                            <?php   } ?>
                     </tr>
+                    
                 </tbody>
+                
             </table>
-
         </div>
     </div>
 </div>
