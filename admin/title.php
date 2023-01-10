@@ -68,7 +68,7 @@ require_once 'includes/sidebar.php';
         ?>
         <div class="block sloginblock">
             <div class="left">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <table class="form">
                         <tr>
                             <td>
