@@ -49,11 +49,11 @@
                         while($result = $category->fetch(PDO::FETCH_ASSOC)) {
 
                             echo "<li class=\"mb_30\">";
-                            echo    "<a href=\"post_details.php?id=<?php echo $result[id]; ?>\">";
-                            echo        "<div class=\"post_img\"><img src=\"admin/<?php echo $result[image]; ?>\" alt=\"image\"></div>";
+                            echo    "<a href=\"post_details.php?id=$result[id]\">";
+                            echo        "<div class=\"post_img\"><img src=\"admin/$result[image]\" alt=\"image\"></div>";
                             echo        "<div class=\"recent_post_content\">";
-                            echo    "<h6><?php echo $format->textShorten($result[body], 60); ?></h6>";
-                            echo        "<span class=\"color_gray\"><?php echo $format->formatDate($result[date]); ?></span>";
+                            echo    "<h6>$result[body]</h6>";
+                            echo        "<span class=\"color_gray\">$result[date]</span>";
                             echo    "</div>";
                             echo    "</a>";
                             echo "</li>";

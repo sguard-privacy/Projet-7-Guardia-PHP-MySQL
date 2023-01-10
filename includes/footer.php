@@ -12,7 +12,7 @@
                         while($footer = $copyright->fetch(PDO::FETCH_ASSOC)) {
 
 
-                            echo "<p><?php echo $footer[copyright] ?><?php echo date('Y') ?><p>";
+                            echo "<p>$footer[copyright]<p>";
                          }
                          ?>
                 </div>

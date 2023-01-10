@@ -13,7 +13,7 @@
 //         Récupérer la valeur de id
 // Sinon
 //     Rediriger vers inbox.php
-?>
+?>''
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Voir les messages</h2>

@@ -4,7 +4,7 @@ require_once '../includes/fonction.php';
 
 $message = '';
 if (isset($_GET['action']) && $_GET['action'] == 'deconnexion') { // si il existe action qui contient 'deconnexion' dans l'url
-    unset($_SESSION['membre']); // on supprime le membre de la session (le contenu du tableau indice membre)
+    unset($_SESSION['user']); // on supprime le membre de la session (le contenu du tableau indice membre)
     $message = '<div class="alert alert-success">Vous êtes Déconnecté</div>';// message de déconnexion cf echo plus bas
     // debug($_SESSION);
 }
@@ -24,7 +24,7 @@ if(!empty($_POST)) {
         $contenu .='<div class="alert alert-danger">Le mot de passe est manquant !</div>';
     }
     if (empty($contenu)) {
-        $resultat = executeRequete("SELECT * FROM user WHERE username =:username ",
+        $resultat = executeRequete("SELECT * FROM user WHERE username = :username ",
         array (
             ':username' => $_POST['username'],
             // ':mdp' => $_POST['mdp'],
@@ -45,7 +45,7 @@ if(!empty($_POST)) {
             }else {
               $contenu .='<div class="alert alert-danger">Erreur sur les identifiants !</div>';
             }
-        }else {
+        } else {
           $contenu .='<div class="alert alert-danger">Erreur sur les identifiants !</div>';
         }
     }
@@ -74,7 +74,7 @@ if(!empty($_POST)) {
                 <div>
                     <input type="submit" value="Se connecter" />
                 </div>
-                <?php debug($_SESSION); echo $message, $contenu ?>
+                <?php debug($_SESSION); echo $message; ?>
             </form><!-- form -->
             <div class="button">
                 <a href="#">Formation avec projet en direct</a>

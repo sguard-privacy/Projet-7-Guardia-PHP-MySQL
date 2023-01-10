@@ -6,13 +6,14 @@
 <div id="site_info">
     <!--    For show social link from database-->
     <?php
-    $query = "SELECT * FROM footer WHERE id='1'";
-    $copyright = $db->select($query);
-    if ($copyright){
-    while ($result = $copyright->fetch_assoc()){
-    ?>
-        <p><?php echo $result['copyright'] ?> <?php echo date('Y')?> </p>
-    <?php } }?>
+                        $copyright = $pdoBLOG->query ( "SELECT * FROM footer WHERE id='1'"); 
+            
+                        while($footer = $copyright->fetch(PDO::FETCH_ASSOC)) {
+
+
+                            echo "<p>$footer[copyright]<p>";
+                         }
+                         ?>
 </div>
 </body>
 </html>

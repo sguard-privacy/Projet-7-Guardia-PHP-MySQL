@@ -1,18 +1,19 @@
 <?php
 
-require_once '../includes/bdd.php';
-require_once '../includes/fonction.php';
+require_once 'includes/bdd.php';
+require_once 'includes/fonction.php';
 
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 if (estconnecte()){
     $id = $_SESSION['user']['id'];
-    debug($_SESSION);
-  } else {
-    header('location:login.php');
+    // debug($_SESSION);
   }
   
+  if (!estConnecte()) {
+    header('location:login.php');
+  }
 
 ?>
 
@@ -57,10 +58,9 @@ if (estconnecte()){
             <div id="branding">
                 <!--               For show blog title  & logo from database-->
                 <?php
-                $query = "SELECT * FROM title WHERE id='1'";
-                $title = $db->select($query);
+                $title = $pdoBLOG->query("SELECT * FROM title WHERE id='1'");
                 if ($title) {
-                    while ($result = $title->fetch_assoc()) {
+                    while ($result = $title->fetch(PDO::FETCH_ASSOC)) {
 
                 ?>
                         <div class="floatleft logo">
@@ -78,13 +78,13 @@ if (estconnecte()){
                     </div>
                     <div class="floatleft marginleft10">
                         <?php
-                        if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-                            // Session::destroy();
+                        if (isset($_GET['action']) && $_GET['action'] == 'deconnexion') {
+                            session_destroy();
                         }
                         ?>
                         <ul class="inline-ul floatleft">
                             <li>Admin</li>
-                            <li><a href="?action=logout">Déconnexion</a></li>
+                         <?php echo  '<li><a href="' .RACINE_SITE. 'login.php?action=deconnexion">Déconnexion</a></li>'; ?>
                         </ul>
                     </div>
                 </div>
@@ -100,17 +100,16 @@ if (estconnecte()){
                 <!--            <li class="ic-form-style"><a href=""><span>User Profile</span></a></li>-->
                 <!--            <li class="ic-typography"><a href="changepassword.php"><span>Change Password</span></a></li>-->
                 <li class="ic-grid-tables"><a href="inbox.php"><span>Boite de réception
-                            <?php
+                  <?php
                             //                count unseen messages
-                            $query = "SELECT * FROM contact WHERE status ='0'";
-                            $message = $db->select($query);
-                            if ($message) {
-                                $count = mysqli_num_rows($message);
-                                echo "(" . $count . ")";
-                            } else {
-                                "(0)";
-                            }
-                            ?>
+                         //    $message = $pdoBLOG->query("SELECT * FROM contact WHERE status ='0'");
+                          //   if ($message) {
+                              //   $count = mysqli_num_rows($message);
+                              //   echo "(" . $count . ")";
+                          //   } else {
+                             //    "(0)";
+                          //   }
+                             ?>
                         </span> </a>
                 </li>
                 <li class="ic-charts"><a target="_blank" href="../index.php"><span>Visiter le site</span></a></li>
