@@ -10,13 +10,6 @@
 
                     </ul>
                 </li>
-
-                <!--                <li><a class="menuitem">Update Pages</a>-->
-                <!--                    <ul class="submenu">-->
-                <!--                        <li><a>About Us</a></li>-->
-                <!--                        <li><a>Contact Us</a></li>-->
-                <!--                    </ul>-->
-                <!--                </li>-->
                 <li><a class="menuitem">Option Catégories</a>
                     <ul class="submenu">
                         <li><a href="add_category.php">Ajouter une catégorie</a> </li>

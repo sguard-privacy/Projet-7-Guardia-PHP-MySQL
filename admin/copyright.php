@@ -7,20 +7,13 @@ require_once 'includes/sidebar.php';
         <h2>Mettre à jour le texte du droit d'auteur</h2>
         <!--   For update copyright media -->
         <?php
-        // Si la méthode de requête est POST
-        // Alors
-        //     Récupérer la valeur de copyright
-        //     Si copyright est vide
-        //         Alors
-        //             Afficher un message d'erreur
-        //         Sinon
-        //             Mettre à jour le copyright dans la table footer
-        //             Si le copyright est mis à jour
-        //                 Alors
-        //                     Afficher un message de succès
-        //                 Sinon
-        //                     Afficher un message d'erreur
-        ?>
+   $footer = $pdoBLOG->query ( "SELECT * FROM footer WHERE id");
+
+   while($copyright = $footer->fetch(PDO::FETCH_ASSOC)) {
+
+                   echo "<p>Le footer actuel : $copyright[copyright]</p>";
+           }
+           ?>          
 
         <div class="block copyblock">
             <!--    For show social link from database-->

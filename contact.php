@@ -9,15 +9,15 @@ require_once "includes/header.php";
 
 if (!empty($_POST)) {
 
-    if ( !isset($_POST['denomination']) || strlen($_POST['denomination']) < 2 || strlen($_POST['denomination']) > 40) {
+    if ( !isset($_POST['name']) || strlen($_POST['name']) < 2 || strlen($_POST['name']) > 40) {
         // !isset n'est pas isset, .= concaténation puis affectation, || ou, strlen string length longueur chainbe de caractère
         $erreur .='<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre dénomination doit faire entre 2 et 40 caractères</div>';
     }
-    if ( !isset($_POST['objet']) || strlen($_POST['objet']) < 6 || strlen($_POST['objet']) > 25) {
+    if ( !isset($_POST['subject']) || strlen($_POST['subject']) < 6 || strlen($_POST['subject']) > 25) {
         $erreur .='<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">l\'Objet doit faire entre 6 et 25 caractères </div>';
     }
   
-    if ( !isset($_POST['mail']) || strlen($_POST['mail']) > 50 || !filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+    if ( !isset($_POST['email']) || strlen($_POST['email']) > 50 || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         // filter_var filtre une variable, et dans ce filtre on passe la constante prédéfinie (EN MAJUSCULE) qui vérifie que c'est bien au format email
         $erreur .='<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre email n\'est pas conforme</div>';
     }
@@ -37,21 +37,19 @@ if (!empty($_POST)) {
     if (empty($erreur)) {
 
     
-    $_POST['denomination'] = htmlspecialchars($_POST['denomination']);
-    $_POST['objet'] = htmlspecialchars($_POST['objet']);
-    $_POST['mail'] = htmlspecialchars($_POST['mail']);
-    $_POST['telephone'] = htmlspecialchars($_POST['telephone']);
+    $_POST['name'] = htmlspecialchars($_POST['name']);
+    $_POST['subject'] = htmlspecialchars($_POST['subject']);
+    $_POST['email'] = htmlspecialchars($_POST['email']);
     $_POST['message'] = htmlspecialchars($_POST['message']);
 
 
         // adapter la requete en fonction de la bdd
-    $contact = executeRequete(" INSERT INTO php_blog WHERE contacts (denomination, objet, mail, telephone, message) VALUES (:denomination, :objet, :mail, :telephone, :message)",
+    $contact = executeRequete(" INSERT INTO  contact (name, subject, email, message) VALUES (:name, :subject, :email, :message)",
 
     array(
-    ':denomination' => $_POST['denomination'],
-    ':objet' => $_POST['objet'],
-    ':mail' => $_POST['mail'],
-    ':telephone' => $_POST['telephone'],
+    ':name' => $_POST['name'],
+    ':subject' => $_POST['subject'],
+    ':email' => $_POST['email'],
     ':message' => $_POST['message'],
     ));
 
@@ -136,6 +134,7 @@ if (!empty($_POST)) {
                                 <div class="col-md-12 col-lg-12">
                                     <div class="form-group">
                                         <input class="btn btn-default" value="Envoyer" type="submit" />
+                                        <?php $confirmation ?>
                                     </div>
                                 </div>
                             </div>

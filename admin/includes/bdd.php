@@ -15,8 +15,7 @@ array(
 // 2- OUVERTURE DE SESSION
 session_start();
 // Informations de la session passées en variables
-$id = $_SESSION['user']['id'];
-$username = $_SESSION['user']['username'];
+
 
 
 

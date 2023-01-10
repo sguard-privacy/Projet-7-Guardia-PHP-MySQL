@@ -8,19 +8,12 @@ require_once 'includes/sidebar.php';
         <h2>Ajouter une nouvelle catégorie</h2>
         <div class="block copyblock">
             <?php
-            // Si la méthode de requête est POST
-            // Alors
-            //     Récupérer la valeur de name
-            //     Si name est vide
-            //         Alors
-            //             Afficher un message d'erreur
-            //         Sinon
-            //             Insérer la catégorie dans la table category
-            //             Si la catégorie est insérée
-            //                 Alors
-            //                     Afficher un message de succès
-            //                 Sinon
-            //                     Afficher un message d'erreur
+             $insertion = executeRequete(" INSERT INTO category (name) VALUES (:name) ",
+
+             array(
+                 ':name' => $_POST['name'],
+              ));
+         
             ?>
             <form method="post">
                 <table class="form">

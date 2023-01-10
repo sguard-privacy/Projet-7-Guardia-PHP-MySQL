@@ -23,78 +23,47 @@ require_once 'includes/sidebar.php';
         <h2>Mettre à jour le titre et la description du site</h2>
         <!--            For Update website Title & Logo-->
         <?php
-        // Si la méthode de requête est POST
-        // Alors
-        //     Récupérer la valeur de title
-        //     Récupérer la valeur de logo
-        //     Si title est vide
-        //         Alors
-        //             Afficher un message d'erreur
-        //         Sinon
-        //             Si logo est vide
-        //                 Alors
-        //                     Mettre à jour le titre dans la table title_slogan
-        //                     Si le titre est mis à jour
-        //                         Alors
-        //                             Afficher un message de succès
-        //                         Sinon
-        //                             Afficher un message d'erreur
-        //                 Sinon
-        //                     Si l'extension du logo est permise
-        //                         Alors
-        //                             Si la taille du logo est inférieure à 1 Mo
-        //                                 Alors
-        //                                     Déplacer le logo dans le dossier uploads
-        //                                     Mettre à jour le titre et le logo dans la table title_slogan
-        //                                     Si le titre et le logo sont mis à jour
-        //                                         Alors
-        //                                             Afficher un message de succès
-        //                                         Sinon
-        //                                             Afficher un message d'erreur
-        //                                 Sinon
-        //                                     Afficher un message d'erreur
-        //                             Sinon
-        //                                 Afficher un message d'erreur
-        //                     Sinon
-        //                         Afficher un message d'erreur
+
         ?>
 
 
         <!--               For show blog title  & logo from database-->
-        <?php
-        // Récupérer les données de la table title_slogan
-        // Tant que les données sont récupérées
-        //     Afficher les données
-        ?>
         <div class="block sloginblock">
             <div class="left">
-                <form action="" method="POST" enctype="multipart/form-data">
-                    <table class="form">
-                        <tr>
-                            <td>
-                                <label>Titre du site Web</label>
-                            </td>
-                            <td>
-                                <input type="text" value="" name="title" class="medium" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Télécharger le logo</label>
-                            </td>
-                            <td>
-                                <input type="file" name="logo" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            </td>
-                            <td>
-                                <input type="submit" name="submit" Value="Modifier" />
-                            </td>
-                        </tr>
-                    </table>
-                </form>
+            <?php
+            $title = $pdoBLOG->query ( "SELECT * FROM title");
+            while($update = $title->fetch(PDO::FETCH_ASSOC)) {
+
+                echo "<form action=\"\" method=\"POST\" enctype=\"multipart/form-data\">";
+                echo "<table class=\"form\">";
+                    echo "<tr>";
+                        echo "<td>";
+                            echo "<label>Titre du site Web</label>";
+                        echo "</td>";
+                        echo "<td>";
+                            echo "<input type=\"text\" value=\"$update[title]\" name=\"title\" class=\"medium\" />";
+                        echo "</td>";
+                    echo "</tr>";
+                    echo "<tr>";
+                        echo "<td>";
+                            echo "<label>Télécharger le logo</label>";
+                        echo "</td>";
+                        echo "<td>";
+                            echo "<input type=\"file\" name=\"logo\" />";
+                        echo "</td>";
+                    echo "</tr>";
+                    echo "<tr>";
+                        echo "<td>";
+                        echo "</td>";
+                        echo "<td>";
+                            echo "<input type=\"submit\" name=\"submit\" Value=\"Modifier\" />";
+                        echo "</td>";
+                    echo "</tr>";
+                echo "</table>";
+            echo "</form>";
+
+            }
+                ?>
             </div>
             <div class="right">
                 <img src="" alt="logo">

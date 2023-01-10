@@ -1,23 +1,11 @@
 ﻿<?php
-require_once 'includes/bdd.php';
-require_once 'includes/fonction.php';
 require_once 'includes/header.php';
 require_once 'includes/sidebar.php';
 
 
 // 3 RÉCEPTION DES INFORMATIONS D'UN EMPLOYÉ AVEC $_GET
 // debug($_GET);
-if ( isset($_GET['id']) ) {// on demande le détail
-      // debug($_GET);
-      $social = $pdoBLOG->prepare( " SELECT * FROM social WHERE 1  " );
-      $social->execute(array(
-        ':id' => $_GET['id']// on associe le marqueur vide
-      ));
 
-		$link = $social->fetch(PDO::FETCH_ASSOC);//je passe les infos dans une variable
-		// debug($fiche);// ferme if isset accolade suivante
-
-	}
 
 //4 TRAITEMENT DE MISE À JOUR D'UN EMPLOYÉ
 if ( !empty($_POST) ) {//not empty
@@ -49,59 +37,63 @@ if ( !empty($_POST) ) {//not empty
         <h2>Mettre à jour les médias sociaux</h2>
         <!--   For update social media -->
 
-        <div class="block">
-            <!--     For show social link from database-->
-
             <form action="" method="POST">
                 <table class="form">
                     <tr>
                         <td>
-                            <label>Facebook</label>
-                        </td>
-                        <td>
-                            <input type="text" name="facebook" value="<?php echo $link['facebook']; ?>" class="medium" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Github</label>
-                        </td>
-                        <td>
-                            <input type="text" name="github" value="<?php echo $link['github']; ?>" class=" medium" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Skype</label>
-                        </td>
-                        <td>
-                            <input type="text" name="skype" value="<?php echo $link['skype']; ?>" class="medium" />
-                        </td>
-                    </tr>
+                        <?php
+            $social = $pdoBLOG->query ( "SELECT * FROM social WHERE id");
 
-                    <tr>
-                        <td>
-                            <label>LinkedIn</label>
-                        </td>
-                        <td>
-                            <input type="text" name="linkedin" value="<?php echo $link['linkedin']; ?>" class="medium" />
-                        </td>
-                    </tr>
+            while($link = $social->fetch(PDO::FETCH_ASSOC)) {
 
-                    <tr>
-                        <td>
-                            <label>Google </label>
-                        </td>
-                        <td>
-                            <input type="text" name="google" value="<?php echo $link['google']; ?>" class="medium" />
-                        </td>
-                    </tr>
+                            echo "<label>Facebook</label>";
+                            echo "</td>";
+                            echo "<td>";
+                            echo "<input type=\"text\" name=\"facebook\" value=\"$link[facebook]\" class=\"medium\" />";
+                            echo "</td>";
+                            echo "</tr>";
+                            echo "<tr>";
+                            echo "<td>";
+                            echo "<label>Github</label>";
+                            echo "</td>";
+                            echo "<td>";
+                            echo "<input type=\"text\" name=\"github\" value=\"$link[github]\" class=\" medium\" />";
+                            echo "</td>";
+                            echo "</tr>";
+                            echo "<tr>";
+                            echo "<td>";
+                            echo "<label>Skype</label>";
+                            echo "</td>";
+                            echo "<td>";
+                            echo "<input type=\"text\" name=\"skype\" value=\"$link[skype]\" class=\"medium\" />";
+                            echo "</td>";
+                            echo "</tr>";
 
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input type="submit" name="submit" Value="Modifier" />
-                        </td>
+                            echo "<tr>";
+                            echo "<td>";
+                            echo "<label>LinkedIn</label>";
+                            echo "</td>";
+                            echo "<td>";
+                            echo "<input type=\"text\" name=\"linkedin\" value=\"$link[linkedin]\" class=\"medium\" />";
+                            echo "</td>";
+                            echo "</tr>";
+
+                            echo "<tr>";
+                            echo "<td>";
+                            echo "<label>Google </label>";
+                            echo "</td>";
+                            echo "<td>";
+                            echo "<input type=\"text\" name=\"google\" value=\"$link[google]\" class=\"medium\" />";
+                            echo "</td>";
+                            echo "</tr>";
+
+                            echo "<tr>";
+                            echo "<td></td>";
+                            echo "<td>";
+                            echo "<input type=\"submit\" name=\"submit\" Value=\"Modifier\" />";
+                            echo "</td>";
+                    }
+                    ?>
                     </tr>
                 </table>
             </form>
