@@ -21,13 +21,14 @@ require_once 'includes/sidebar.php';
             copy($_FILES['image']['tmp_name'], '' .$image);
             } // fin du traitement photo
      
-        $newpost = executeRequete(" INSERT INTO post (title, body, author, tags, image) VALUES (:title, :body, :author, :tags, :image) ",
+        $newpost = executeRequete(" INSERT INTO post (title, body, author, tags, category_id, image) VALUES (:title, :body, :author, :tags, :category_id, :image) ",
     
         array(
             ':title' => $_POST['title'],
             ':body' => $_POST['body'],
             ':author' => $_POST['author'],
             ':tags' => $_POST['tags'],
+            ':category_id' => $_POST['category_id'],
             ':image' => $image,
          ));
     }
@@ -50,17 +51,17 @@ require_once 'includes/sidebar.php';
                             <label>Category</label>
                         </td>
                         <td>
-                        <?php
-                       // $select = $pdoBLOG->query( " SELECT * FROM category " );
-                          //  echo "<select id=\"select\" name=\"category_id\">";
-                             //  echo "<option>Select Category </option>";
-                             //  while ( $category = $select->fetch( PDO::FETCH_ASSOC ) ) {
-                              // foreach ( $category as $infos ) { //$employe étant un tableau on peut le parcourir avec une foreach. La variable $infos prend les valeurs successivement à chaque tour de boucle
-                                  //  echo "<option value=\"$infos\"></option>";
-                               // }
-                             // }
-                          // echo "</select>";
-                            ?>
+                        <select id="select" name="category_id">
+                                <option>Select Category </option>
+                                <?php
+                                     $requete = $pdoBLOG->query( " SELECT * FROM category " );
+                                     
+                         
+                                    while ( $select = $requete->fetch( PDO::FETCH_ASSOC )) {
+                                ?>
+                                <option value="<?php echo $select['category_id']; ?>"><?php echo $select['name']; ?></option>
+                                <?php   } ?>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -68,7 +69,7 @@ require_once 'includes/sidebar.php';
                             <label>Télecharger une image</label>
                         </td>
                         <td>
-                            <input type="file" name="image" />
+                            <input type="file" name="image" required />
                         </td>
                     </tr>
                     <tr>

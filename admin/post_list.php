@@ -22,22 +22,37 @@ require_once 'includes/sidebar.php';
                 </thead>
                 <tbody>
                     <?php
-                      $select = $pdoBLOG->query( " SELECT * FROM post, category " );
+                     // debug($_GET);
+                if (isset($_GET['action']) && $_GET['action'] == 'supprimer' && isset($_GET['id'])) {
+                    $supprimer = $pdoBLOG->prepare( " DELETE FROM post WHERE id = :id " );
+    
+                    $supprimer->execute(array(
+                        ':id' => $_GET['id']
+                    ));
+    
+                    if ($supprimer->rowCount() == 0) {
+                        $contenu .= '<div class="alert alert-danger"> Erreur de suppression</div>';
+                    } else {
+                        $contenu .= '<div class="alert alert-success"> POST supprimé</div>';
+                    }
+                    }
+
+                      $select = $pdoBLOG->query( " SELECT * FROM post " );
                       
           
                         while ( $post = $select->fetch( PDO::FETCH_ASSOC )) { ?>
                     
                     <tr class="odd gradeX">
-                        <td></td>
+                        <td><?php echo $post['id']; ?></td>
                         <td><?php echo $post['title']; ?></td>
                         <td><?php echo $post['body']; ?></td>
-                        <td><?php echo $post['category_id']; ?></td>
+                        <td></td>
                         <td><img src="<?php echo $post['image']; ?>" height="40px" width="80px" alt="photos du post"></td>
                         <td><?php echo $post['author']; ?></td>
                         <td><?php echo $post['tags']; ?></td>
                         <td><?php echo $post['date']; ?></td>
-                        <td><a href="edit_post.php?edit_postid=">Modifier</a>
-                            || <a onclick="return confirm('Etes vous sur de vouloir supprimer ?')" href="delete_post.php?del_postid=">Supprimer</a></td>
+                        <td><a href="edit_post.php?id=<?php echo $post['id']; ?>">Modifier</a>
+                            || <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer le Post ?')" href="?action=supprimer&id=<?php echo $post['id']; ?>">Supprimer</a></td>
                             <?php   } ?>
                     </tr>
                     

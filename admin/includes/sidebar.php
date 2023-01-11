@@ -7,7 +7,7 @@
                         <li><a href="title.php">Titre et Slogans</a></li>
                         <li><a href="social.php">Média sociaux</a></li>
                         <li><a href="copyright.php">Copyright</a></li>
-
+                        <li><a href="inscription.php">Inscrire un nouvel Admin</a></li>
                     </ul>
                 </li>
                 <li><a class="menuitem">Option Catégories</a>

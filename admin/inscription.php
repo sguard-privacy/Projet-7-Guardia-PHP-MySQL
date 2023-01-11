@@ -16,7 +16,7 @@ if ( !empty($_POST) ) {
                   ':password' => $password,
               ));
               if ($succes) {
-                $contenu .='<div class="alert alert-success">Préparer vous au combat, vous êtes inscrit sur Call of Duty Black Ops 3 ! <br>   <a href="login.php">Cliquez ici pour vous connecter</a></div>  ';
+                $contenu .='<div class="alert alert-success">Vous êtes inscrit sur le Blog ! <br>   <a href="login.php">Cliquez ici pour vous connecter</a></div>  ';
 
 
             } else {
@@ -49,7 +49,7 @@ if ( !empty($_POST) ) {
                 <div>
                     <input type="submit" value="S'inscire" />
                 </div>
-                <?php echo $message, $contenu ?>
+                <?php echo $contenu ?>
             </form><!-- form -->
             <div class="button">
                 <a href="#">Formation avec projet en direct</a>

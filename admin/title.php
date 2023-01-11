@@ -26,7 +26,7 @@ require_once 'includes/sidebar.php';
 
             if ( !empty($_POST) ) {//not empty
                 // debug($_POST);
-                $_POST['title'] = htmlspecialchars($_POST['title']);// pour se prémunir des failles et des injections SQL
+                $_POST['title'] = htmlspecialchars($_POST['title']);// pour se prémunir des failles et des faille XSS
             
                 $logo = '';
                 if(!empty($_FILES['logo']['name'])) {

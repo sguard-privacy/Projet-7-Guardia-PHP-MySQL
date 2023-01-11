@@ -3,39 +3,59 @@ require_once 'includes/header.php';
 require_once 'includes/sidebar.php';
 ?>
 <?php
-// Si la méthode de requête est GET
-// Alors
-//     Récupérer la valeur de edit_postid
-//     Si edit_postid est vide
-//         Alors
-//             Rediriger vers post_list.php
-//     Sinon
-//         Récupérer la valeur de id
+// 3 RÉCEPTION DES INFORMATIONS D'UN EMPLOYÉ AVEC $_GET
+// debug($_GET);
+if ( isset($_GET['id']) ) {// on demande le détail d'un employé
+    // debug($_GET);
+    $resultat = $pdoBLOG->prepare( " SELECT * FROM post WHERE id = :id" );
+    $resultat->execute(array(
+      ':id' => $_GET['id']// on associe le marqueur vide à l'id_employes
+    ));
+    // debug($resultat->rowCount());
+      if ($resultat->rowCount() == 0) { // si le rowCount est égal à 0 c'est qu'il n'y a pas d'employé
+          header('location:post_list.php');// redirection vers la page de départ
+          exit();// arrêt du script
+      }  
+      $post = $resultat->fetch(PDO::FETCH_ASSOC);//je passe les infos dans une variable
+      // debug($fiche);// ferme if isset accolade suivante
+      } else {
+      header('location:post_list.php');// si j'arrive sur la page sans rien dans l'url
+      exit();// arrête du script
+  }
+
+//4 TRAITEMENT DE MISE À JOUR D'UNE CATEGORY
+if ( !empty($_POST) ) {//not empty
+  // debug($_POST);
+  $_POST['title'] = htmlspecialchars($_POST['title']);
+  $_POST['body'] = htmlspecialchars($_POST['body']);
+  $_POST['author'] = htmlspecialchars($_POST['author']);
+  $_POST['tags'] = htmlspecialchars($_POST['tags']);
+
+  $image = '';
+  if(!empty($_FILES['image']['name'])) {
+     $image = 'uploads/' .$_FILES['image']['name'];
+     copy($_FILES['image']['tmp_name'], '' .$image);
+     } // fin du traitement photo
+
+
+
+  $resultat = $pdoBLOG->prepare( " UPDATE post SET title = :title, body = :body, author = :author, tags = :tags, image = :image WHERE id = :id " );// requete préparée avec des marqueurs
+
+  $resultat->execute( array(
+      ':title' => $_POST['title'],
+      ':body' => $_POST['body'],
+      ':author' => $_POST['author'],
+      ':tags' => $_POST['tags'],
+      ':image' => $image,
+      ':id' => $_GET['id'],
+  ));
+}
 ?>
 
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Ajouter un nouveau post</h2>
-        <?php
-        // Si la méthode de requête est POST
-        // Alors
-        //     Récupérer la valeur de title
-        //     Récupérer la valeur de category_id
-        //     Récupérer la valeur de author
-        //     Récupérer la valeur de tags
-        //     Récupérer la valeur de body
-        //     Récupérer la valeur de image
-        //     Si title est vide
-        //         Alors
-        //             Afficher un message d'erreur
-        //         Sinon
-        //             Insérer le post dans la table post
-        //             Si le post est inséré
-        //                 Alors
-        //                     Afficher un message de succès
-        //                 Sinon
-        //                     Afficher un message d'erreur
-        ?>
+
         <div class="block">
             <?php
             // Récupérer le post de la table post
@@ -50,7 +70,7 @@ require_once 'includes/sidebar.php';
                             <label>Title</label>
                         </td>
                         <td>
-                            <input type="text" name="title" value="" class="medium" />
+                            <input type="text" name="title" value="<?php echo $post['title']; ?>" class="medium" />
                         </td>
                     </tr>
 
@@ -74,7 +94,7 @@ require_once 'includes/sidebar.php';
                             <label>Télécharger une image</label>
                         </td>
                         <td>
-                            <img src="" height="60px" width="100px" alt="">
+                            <img src="<?php echo $post['image']; ?>" height="60px" width="100px" alt="">
                             <input type="file" name="image" />
                         </td>
                     </tr>
@@ -83,7 +103,7 @@ require_once 'includes/sidebar.php';
                             <label>Nom de l'auteur</label>
                         </td>
                         <td>
-                            <input type="text" name="author" value="" />
+                            <input type="text" name="author" value="<?php echo $post['author']; ?>" />
                         </td>
                     </tr>
                     <tr>
@@ -91,7 +111,7 @@ require_once 'includes/sidebar.php';
                             <label>Tags</label>
                         </td>
                         <td>
-                            <input type="text" name="tags" value="" />
+                            <input type="text" name="tags" value="<?php echo $post['tags']; ?>" />
                         </td>
                     </tr>
                     <tr>
@@ -99,13 +119,13 @@ require_once 'includes/sidebar.php';
                             <label>Contenu</label>
                         </td>
                         <td>
-                            <textarea class="tinymce" name="body"></textarea>
+                            <textarea class="" name="body"></textarea>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
-                            <input type="submit" name="submit" Value="Sauvegarder" />
+                            <input type="submit" name="submit" Value="Sauvegarder"/>
                         </td>
                     </tr>
                 </table>

@@ -37,7 +37,7 @@ require_once 'includes/sidebar.php';
                 if ($supprimer->rowCount() == 0) {
                     $contenu .= '<div class="alert alert-danger"> Erreur de suppression</div>';
                 } else {
-                    $contenu .= '<div class="alert alert-success"> Membre supprimé</div>';
+                    $contenu .= '<div class="alert alert-success"> Catgory supprimé</div>';
                 }
                 }
 
