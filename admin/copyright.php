@@ -10,17 +10,31 @@ require_once 'includes/sidebar.php';
 
 if ( !empty($_POST) ) {//not empty
     // debug($_POST);
-      $_POST['copyright'] = htmlspecialchars($_POST['copyright']);// pour se prémunir des failles et des injections SQL
+
+    if ( !isset($_POST['copyright']) || strlen($_POST['copyright']) < 5 || strlen($_POST['copyright']) > 30) {
+        $contenu .='<div class="alert alert-warning">La Copyright du site doit faire entre 5 et 30 caractères</div>';
+    }
+
+    if (empty($contenu)) {
+
+      $_POST['copyright'] = htmlspecialchars($_POST['copyright']);// pour se prémunir des failles et des failles XSS
   
   
-    $resultat = $pdoBLOG->prepare( " UPDATE footer SET copyright = :copyright WHERE id" );// requete préparée avec des marqueurs
+    $update = $pdoBLOG->prepare( " UPDATE footer SET copyright = :copyright WHERE id" );// requete préparée avec des marqueurs
   
-    $resultat->execute( array(
+    $update->execute( array(
         ':copyright' => $_POST['copyright'],
 
     ));
-  }
 
+
+    if ($update) {
+        $confirmation .= '<div class="alert alert-success">Le copyright a été mise à jour </div>';
+    } else {
+        $erreur .= '<div class="alert alert-danger">Erreur lors de la mise à jour...</div>';
+    }
+  }
+}
    $footer = $pdoBLOG->query ( "SELECT * FROM footer WHERE id");
 
    while($copyright = $footer->fetch(PDO::FETCH_ASSOC)) {
@@ -31,11 +45,7 @@ if ( !empty($_POST) ) {//not empty
 
         <div class="block copyblock">
             <!--    For show social link from database-->
-            <?php
-            // Récupérer le copyright de la table footer
-            // Tant que le copyright est récupéré
-            //     Afficher le copyright
-            ?>
+            <p>Pour la mise à jour, le copyright doit faire entre 5 et 30 caractères</p>
             <form action="" method="POST">
                 <table class="form">
                     <tr>
@@ -47,6 +57,7 @@ if ( !empty($_POST) ) {//not empty
                     <tr>
                         <td>
                             <input type="submit" name="submit" Value="Modifier" />
+                            <?php echo $contenu, $confirmation; ?>
                         </td>
                     </tr>
                 </table>

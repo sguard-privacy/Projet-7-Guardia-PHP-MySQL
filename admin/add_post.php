@@ -9,6 +9,25 @@ require_once 'includes/sidebar.php';
         <?php
        if (!empty($_POST)) {
         // var_dump($_POST);
+
+        if ( !isset($_POST['title']) || strlen($_POST['title']) < 2 || strlen($_POST['title']) > 20) {
+            $contenu .='<div class="alert alert-warning">Le Titre doit faire entre 2 et 20 caractères</div>';
+        }
+
+        if ( !isset($_POST['body']) || strlen($_POST['body']) < 20 || strlen($_POST['body']) > 1500) {
+            $contenu .='<div class="alert alert-warning">Le message doit faire entre 20 et 1500 caractères</div>';
+        }
+
+        if ( !isset($_POST['author']) || strlen($_POST['author']) < 2 || strlen($_POST['author']) > 30) {
+            $contenu .='<div class="alert alert-warning">L\'auteur doit faire entre 2 et 30 caractères</div>';
+        }
+
+        if ( !isset($_POST['tags']) || strlen($_POST['tags']) < 2 || strlen($_POST['tags']) > 15) {
+            $contenu .='<div class="alert alert-warning">Le Tags doit faire entre 2 et 15 caractères</div>';
+        }
+
+        if (empty($contenu)) {
+
         $_POST['title'] = htmlspecialchars($_POST['title']);
         $_POST['body'] = htmlspecialchars($_POST['body']);
         $_POST['author'] = htmlspecialchars($_POST['author']);
@@ -31,8 +50,14 @@ require_once 'includes/sidebar.php';
             ':category_id' => $_POST['category_id'],
             ':image' => $image,
          ));
+
+         if ($newpost) {
+            $confirmation .= '<div class="alert alert-success">Le Post a été publier sur le site</div>';
+        } else {
+            $erreur .= '<div class="alert alert-danger">Erreur lors de la publication</div>';
+        }
     }
-        ?>
+}       ?>
         <div class="block">
             <form action="" method="post" enctype="multipart/form-data">
                 <table class="form">
@@ -100,6 +125,7 @@ require_once 'includes/sidebar.php';
                         <td></td>
                         <td>
                             <input type="submit" name="submit" Value="Sauvegarder" />
+                            <?php echo $confirmation, $contenu; ?>
                         </td>
                     </tr>
                 </table>

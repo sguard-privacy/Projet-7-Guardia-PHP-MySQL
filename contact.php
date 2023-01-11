@@ -1,5 +1,6 @@
 <?php
 require_once "includes/header.php";
+// require_once "includes/recaptcha.php";
 
 
 // TRAITEMENT DU FORMULAIRE DU CONTACT
@@ -24,6 +25,12 @@ if (!empty($_POST)) {
         $erreur .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre message doit faire entre 15 et 300 caractères</div>';
     }
 
+        // if ( check_token($_POST['g-recaptcha-response'], reCAPTCHAback) ) {
+        // $confirmation .='<div class="fw-bolder text-center" style="background-color: #1abc9c; border-radius: 8px; margin: 10px; padding: 10px;">Validation ReCAPTCHA.</div>';
+        // } else {
+        //     $erreur .='<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Vous êtes un robot</div>';
+        // }
+
 
 
     if (empty($erreur)) {
@@ -47,11 +54,11 @@ if (!empty($_POST)) {
             )
         );
 
-        $confirmation .= '<div class="fw-bolder text-center" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre message à bien été envoyé</div>';
+        $confirmation .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre message à bien été envoyé</div>';
 
     } else {
 
-        $confirmation .= '<div class="fw-bolder text-center" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Erreur lors de l\'envoi du message</div>';
+        $confirmation .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Erreur lors de l\'envoi du message</div>';
     }
 
 
@@ -128,10 +135,11 @@ if (!empty($_POST)) {
                                 </div>
                             </div>
                         </form>
-                        <?php $confirmation; ?>
                     </div>
                 </div>
+            <div class="g-recaptcha" data-sitekey="<?php // echo reCAPTCHAfront ?>"></div>
             </div>
+            <?php echo $confirmation, $erreur; ?>
         </div>
     </div>
 </section>

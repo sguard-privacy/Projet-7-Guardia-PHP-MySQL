@@ -3,14 +3,33 @@ require_once 'includes/header.php';
 require_once 'includes/sidebar.php';
 
 
-// 3 RÉCEPTION DES INFORMATIONS D'UN EMPLOYÉ AVEC $_GET
-// debug($_GET);
-
-
-//4 TRAITEMENT DE MISE À JOUR D'UN EMPLOYÉ
+//4 TRAITEMENT DE MISE À JOUR DES RESEAUX
 if ( !empty($_POST) ) {//not empty
     // debug($_POST);
-    $_POST['facebook'] = htmlspecialchars($_POST['facebook']);// pour se prémunir des failles et des injections SQL
+
+    if ( !isset($_POST['facebook']) || !filter_var($_POST['facebook'], FILTER_VALIDATE_URL) ){
+        $contenu .='<div class="alert alert-warning">Il manque l\'url de facebook ou il n\'es pas conforme !</div>';
+    }
+
+    if ( !isset($_POST['github']) || !filter_var($_POST['github'], FILTER_VALIDATE_URL)) {
+        $contenu .='<div class="alert alert-warning">Il manque l\'url de github ou il n\'es pas conforme !</div>';
+    }
+
+    if ( !isset($_POST['skype']) || !filter_var($_POST['skype'], FILTER_VALIDATE_URL)) {
+        $contenu .='<div class="alert alert-warning">Il manque l\'url de skype ou il n\'es pas conforme !</div>';
+    }
+
+    if ( !isset($_POST['linkedin']) || !filter_var($_POST['linkedin'], FILTER_VALIDATE_URL)) {
+        $contenu .='<div class="alert alert-warning">Il manque l\'url de linkedin ou il n\'es pas conforme !</div>';
+    }
+
+    if ( !isset($_POST['google']) || !filter_var($_POST['google'], FILTER_VALIDATE_URL)) {
+        $contenu .='<div class="alert alert-warning">Il manque l\'url de google ou il n\'es pas conforme !</div>';
+    }
+
+    if (empty($contenu)) {
+
+    $_POST['facebook'] = htmlspecialchars($_POST['facebook']); // pour se prémunir des failles et des failles XSS
 	$_POST['github'] = htmlspecialchars($_POST['github']);
 	$_POST['skype'] = htmlspecialchars($_POST['skype']);
 	$_POST['linkedin'] = htmlspecialchars($_POST['linkedin']);
@@ -29,6 +48,12 @@ if ( !empty($_POST) ) {//not empty
 
 	));
 
+    if ($update) {
+        $confirmation .= '<div class="alert alert-success">Le ou les URL ont été mise à jour</div>';
+    } else {
+        $erreur .= '<div class="alert alert-danger">Erreur lors de la mise à jour...</div>';
+    }
+}
 }
 ?>
 <div class="grid_10">
@@ -99,7 +124,7 @@ if ( !empty($_POST) ) {//not empty
                     }
                     ?>
 
-
+        <?php echo $contenu, $confirmation; ?>
         </div>
     </div>
 </div>

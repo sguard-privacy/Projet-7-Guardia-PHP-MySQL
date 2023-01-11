@@ -74,7 +74,7 @@ if(!empty($_POST)) {
                 <div>
                     <input type="submit" value="Se connecter" />
                 </div>
-                <?php debug($_SESSION); echo $message; ?>
+                <?php echo $message; ?>
             </form><!-- form -->
             <div class="button">
                 <a href="#">Formation avec projet en direct</a>

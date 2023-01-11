@@ -24,8 +24,14 @@ require_once 'includes/sidebar.php';
         <!--            For Update website Title & Logo-->
         <?php
 
-            if ( !empty($_POST) ) {//not empty
+            if (!empty($_POST) ) {//not empty
                 // debug($_POST);
+                if ( !isset($_POST['title']) || strlen($_POST['title']) < 5 || strlen($_POST['title']) > 30) {
+                    $contenu .='<div class="alert alert-warning">La Titre du site doit faire entre 5 et 30 caractères</div>';
+                }
+
+                if (empty($contenu)) {
+
                 $_POST['title'] = htmlspecialchars($_POST['title']);// pour se prémunir des failles et des faille XSS
             
                 $logo = '';
@@ -40,8 +46,15 @@ require_once 'includes/sidebar.php';
                     ':title' => $_POST['title'],
                     ':logo' => $logo,
                 ));
+
+                if ($resultat) {
+                    $confirmation .= '<div class="alert alert-success">Le titre et/ou logo ont été mise à jour</div>';
+                } else {
+                    $erreur .= '<div class="alert alert-danger">Erreur lors de la mise à jour...</div>';
+                }
             }
 
+        }    
         ?>
 
 
@@ -56,7 +69,7 @@ require_once 'includes/sidebar.php';
                 echo "<table class=\"form\">";
                     echo "<tr>";
                         echo "<td>";
-                            echo "<label>Titre du site Web</label>";
+                            echo "<label>Titre du site Web (entre 5 et 30 caractères)</label>";
                         echo "</td>";
                         echo "<td>";
                             echo "<input type=\"text\" value=\"$update[title]\" name=\"title\" class=\"medium\" />";
@@ -67,7 +80,7 @@ require_once 'includes/sidebar.php';
                             echo "<label>Télécharger le logo</label>";
                         echo "</td>";
                         echo "<td>";
-                            echo "<input type=\"file\" name=\"logo\" accept=\"image/png, image/jpeg\"/>";
+                            echo "<input type=\"file\" name=\"logo\" accept=\"image/png, image/jpeg, image/jpg\"/>";
                         echo "</td>";
                     echo "</tr>";
                     echo "<tr>";
@@ -86,6 +99,7 @@ require_once 'includes/sidebar.php';
 
             }
                 ?>
+                <?php echo $confirmation, $contenu; ?>
         </div>
     </div>
 </div>

@@ -3,16 +3,16 @@ require_once 'includes/header.php';
 require_once 'includes/sidebar.php';
 ?>
 <?php
-// 3 RÉCEPTION DES INFORMATIONS D'UN EMPLOYÉ AVEC $_GET
+// 3 RÉCEPTION DES INFORMATIONS D'UN POST avec GET
 // debug($_GET);
-if ( isset($_GET['id']) ) {// on demande le détail d'un employé
+if ( isset($_GET['id']) ) {// on demande le détail du post
     // debug($_GET);
     $resultat = $pdoBLOG->prepare( " SELECT * FROM post WHERE id = :id" );
     $resultat->execute(array(
-      ':id' => $_GET['id']// on associe le marqueur vide à l'id_employes
+      ':id' => $_GET['id']// on associe le marqueur vide à l'id
     ));
     // debug($resultat->rowCount());
-      if ($resultat->rowCount() == 0) { // si le rowCount est égal à 0 c'est qu'il n'y a pas d'employé
+      if ($resultat->rowCount() == 0) { // si le rowCount est égal à 0 c'est qu'il n'y a pas de post
           header('location:post_list.php');// redirection vers la page de départ
           exit();// arrêt du script
       }  
@@ -23,9 +23,28 @@ if ( isset($_GET['id']) ) {// on demande le détail d'un employé
       exit();// arrête du script
   }
 
-//4 TRAITEMENT DE MISE À JOUR D'UNE CATEGORY
+//4 TRAITEMENT DE MISE À JOUR D'UN POST
 if ( !empty($_POST) ) {//not empty
   // debug($_POST);
+
+  if ( !isset($_POST['title']) || strlen($_POST['title']) < 2 || strlen($_POST['title']) > 20) {
+    $contenu .='<div class="alert alert-warning">Le Titre doit faire entre 2 et 20 caractères</div>';
+    }
+
+    if ( !isset($_POST['body']) || strlen($_POST['body']) < 20 || strlen($_POST['body']) > 1500) {
+        $contenu .='<div class="alert alert-warning">Le message doit faire entre 20 et 1500 caractères</div>';
+    }
+
+    if ( !isset($_POST['author']) || strlen($_POST['author']) < 2 || strlen($_POST['author']) > 30) {
+        $contenu .='<div class="alert alert-warning">L\'auteur doit faire entre 2 et 30 caractères</div>';
+    }
+
+    if ( !isset($_POST['tags']) || strlen($_POST['tags']) < 2 || strlen($_POST['tags']) > 15) {
+        $contenu .='<div class="alert alert-warning">Le Tags doit faire entre 2 et 15 caractères</div>';
+    }
+
+if (empty($contenu)) {
+
   $_POST['title'] = htmlspecialchars($_POST['title']);
   $_POST['body'] = htmlspecialchars($_POST['body']);
   $_POST['author'] = htmlspecialchars($_POST['author']);
@@ -49,6 +68,13 @@ if ( !empty($_POST) ) {//not empty
       ':image' => $image,
       ':id' => $_GET['id'],
   ));
+
+  if ($resultat) {
+    $confirmation .= '<div class="alert alert-success">Le Post a été mise à jour</div>';
+    } else {
+        $erreur .= '<div class="alert alert-danger">Erreur lors de la mise à jour</div>';
+    }
+}
 }
 ?>
 
@@ -57,11 +83,6 @@ if ( !empty($_POST) ) {//not empty
         <h2>Ajouter un nouveau post</h2>
 
         <div class="block">
-            <?php
-            // Récupérer le post de la table post
-            // Tant que le post est récupéré
-            //     Afficher les valeurs de title, category_id, author, tags, body et image dans les champs correspondants
-            ?>
             <form action="" method="post" enctype="multipart/form-data">
                 <table class="form">
 
@@ -82,10 +103,13 @@ if ( !empty($_POST) ) {//not empty
                             <select id="select" name="category_id">
                                 <option>Selectionner une catégorie</option>
                                 <?php
-                                // Récupérer les catégories de la table category
-                                // Tant que les catégories sont récupérées
-                                //     Afficher les catégories dans la liste déroulante
+                                     $requete = $pdoBLOG->query( " SELECT * FROM category " );
+                                     
+                         
+                                    while ( $select = $requete->fetch( PDO::FETCH_ASSOC )) {
                                 ?>
+                                 <option value="<?php echo $select['category_id']; ?>"><?php echo $select['name']; ?></option>
+                                <?php   } ?>
                             </select>
                         </td>
                     </tr>
@@ -126,6 +150,7 @@ if ( !empty($_POST) ) {//not empty
                         <td></td>
                         <td>
                             <input type="submit" name="submit" Value="Sauvegarder"/>
+                            <?php echo $confirmation, $contenu; ?>
                         </td>
                     </tr>
                 </table>
