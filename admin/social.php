@@ -17,7 +17,7 @@ if ( !empty($_POST) ) {//not empty
 	$_POST['google'] = htmlspecialchars($_POST['google']);
 
 
-	$update = $pdoBLOG->prepare( " UPDATE social SET facebook = :facebook, github = :github, skype = :skype, linkedin = :linkedin, google = :google, WHERE id = :id" );// requete préparée avec des marqueurs
+	$update = $pdoBLOG->prepare( " UPDATE social SET facebook = :facebook, github = :github, skype = :skype, linkedin = :linkedin, google = :google " );// requete préparée avec des marqueurs
 
 	$update->execute( array(
 		':facebook' => $_POST['facebook'],

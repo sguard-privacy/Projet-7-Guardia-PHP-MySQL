@@ -7,24 +7,30 @@ require_once 'includes/sidebar.php';
     <div class="box round first grid">
         <h2>Ajouter un nouveau post</h2>
         <?php
-        // Si la méthode de requête est POST
-        // Alors
-        //     Récupérer la valeur de title
-        //     Récupérer la valeur de category_id
-        //     Récupérer la valeur de author
-        //     Récupérer la valeur de tags
-        //     Récupérer la valeur de body
-        //     Récupérer la valeur de image
-        //     Si title est vide
-        //         Alors
-        //             Afficher un message d'erreur
-        //         Sinon
-        //             Insérer le post dans la table post
-        //             Si le post est inséré
-        //                 Alors
-        //                     Afficher un message de succès
-        //                 Sinon
-        //                     Afficher un message d'erreur
+       if (!empty($_POST)) {
+        // var_dump($_POST);
+        $_POST['title'] = htmlspecialchars($_POST['title']);
+        $_POST['body'] = htmlspecialchars($_POST['body']);
+        $_POST['author'] = htmlspecialchars($_POST['author']);
+        $_POST['tags'] = htmlspecialchars($_POST['tags']);
+
+    
+        $image = '';
+         if(!empty($_FILES['image']['name'])) {
+            $image = 'uploads/' .$_FILES['image']['name'];
+            copy($_FILES['image']['tmp_name'], '' .$image);
+            } // fin du traitement photo
+     
+        $newpost = executeRequete(" INSERT INTO post (title, body, author, tags, image) VALUES (:title, :body, :author, :tags, :image) ",
+    
+        array(
+            ':title' => $_POST['title'],
+            ':body' => $_POST['body'],
+            ':author' => $_POST['author'],
+            ':tags' => $_POST['tags'],
+            ':image' => $image,
+         ));
+    }
         ?>
         <div class="block">
             <form action="" method="post" enctype="multipart/form-data">
@@ -44,15 +50,17 @@ require_once 'includes/sidebar.php';
                             <label>Category</label>
                         </td>
                         <td>
-                            <select id="select" name="category_id">
-                                <option>Select Category </option>
-                                <?php
-                                // Récupérer les catégories de la table category
-                                // Tant que les catégories sont récupérées
-                                //     Afficher les catégories dans la liste déroulante
-                                ?>
-                                <option value=""></option>
-                            </select>
+                        <?php
+                       // $select = $pdoBLOG->query( " SELECT * FROM category " );
+                          //  echo "<select id=\"select\" name=\"category_id\">";
+                             //  echo "<option>Select Category </option>";
+                             //  while ( $category = $select->fetch( PDO::FETCH_ASSOC ) ) {
+                              // foreach ( $category as $infos ) { //$employe étant un tableau on peut le parcourir avec une foreach. La variable $infos prend les valeurs successivement à chaque tour de boucle
+                                  //  echo "<option value=\"$infos\"></option>";
+                               // }
+                             // }
+                          // echo "</select>";
+                            ?>
                         </td>
                     </tr>
                     <tr>

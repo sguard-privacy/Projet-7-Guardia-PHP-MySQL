@@ -41,7 +41,7 @@
                                 echo "<div class=\"blog_img overlay_one\"><img src=\"admin/$result[image]\" alt=\"image\"></div>";
                                 echo "<div class=\"blog_content bg_white\">";
                                     echo "<div class=\"blog_title\">";
-                                        echo "<a class=\"color_primary\" href=\"post_details.php?id=echo $result[id];\">";
+                                        echo "<a class=\"color_primary\" href=\"post_details.php?id=$result[id];\">";
                                             echo "<h5>$result[title]</h5>";
                                         echo "</a>";
                                     echo "</div>";
@@ -49,7 +49,7 @@
 
                                     echo "<div class=\"admin\">";
                                         echo "<img src=\"images/about/02.jpg\" alt=\"image\">";
-                                        echo "<span class=\"color_white\">By - echo $result[author]</span>";
+                                        echo "<span class=\"color_white\">By $result[author]</span>";
                                     echo "</div>";
                                     echo "<div class=\"date float-right color_primary\"> $result[date]</div>";
                                 echo "</div>";
