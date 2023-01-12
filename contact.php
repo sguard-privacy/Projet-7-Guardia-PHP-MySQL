@@ -19,8 +19,8 @@ if (!empty($_POST)) {
         // !isset n'est pas isset, .= concaténation puis affectation, || ou, strlen string length longueur chainbe de caractère
         $erreur .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre dénomination doit faire entre 2 et 40 caractères</div>';
     }
-    if (!isset($_POST['subject']) || strlen($_POST['subject']) < 3 || strlen($_POST['subject']) > 25) {
-        $erreur .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">l\'Objet doit faire entre 3 et 25 caractères </div>';
+    if (!isset($_POST['subject']) || strlen($_POST['subject']) < 2 || strlen($_POST['subject']) > 50) {
+        $erreur .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">l\'Objet doit faire entre 2 et 30 caractères </div>';
     }
 
     if (!isset($_POST['email']) || strlen($_POST['email']) > 50 || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -28,16 +28,10 @@ if (!empty($_POST)) {
         $erreur .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre email n\'est pas conforme</div>';
     }
 
-    if (!isset($_POST['message']) || strlen($_POST['message']) < 15 || strlen($_POST['message']) > 3000) {
+    if (!isset($_POST['message']) || strlen($_POST['message']) < 10 || strlen($_POST['message']) > 3000) {
         // filter_var filtre une variable, et dans ce filtre on passe la constante prédéfinie (EN MAJUSCULE) qui vérifie que c'est bien au format email
-        $erreur .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre message doit faire entre 15 et 300 caractères</div>';
+        $erreur .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre message doit faire entre 10 et 300 caractères</div>';
     }
-
-        // if ( check_token($_POST['g-recaptcha-response'], reCAPTCHAback) ) {
-        // $confirmation .='<div class="fw-bolder text-center" style="background-color: #1abc9c; border-radius: 8px; margin: 10px; padding: 10px;">Validation ReCAPTCHA.</div>';
-        // } else {
-        //     $erreur .='<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Vous êtes un robot</div>';
-        // }
 
 
 

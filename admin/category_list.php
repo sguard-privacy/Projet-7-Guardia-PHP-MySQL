@@ -5,14 +5,6 @@ require_once 'includes/sidebar.php';
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Category List</h2>
-        <?php
-              $requete = $pdoBLOG->query( " SELECT * FROM category " );
-            //   debug($requete);
-            //   $nbr_category = $requete->rowCount();
-            //   debug($nbr_produits); 
-            
-
-              while ( $category = $requete->fetch( PDO::FETCH_ASSOC )) { ?>
               
               <div class="block">
             <table class="data display datatable" id="example">
@@ -24,6 +16,14 @@ require_once 'includes/sidebar.php';
                     </tr>
                 </thead>
                 <tbody>
+                <?php
+              $requete = $pdoBLOG->query( " SELECT * FROM category " );
+            //   debug($requete);
+            //   $nbr_category = $requete->rowCount();
+            //   debug($nbr_produits); 
+            
+
+              while ( $category = $requete->fetch( PDO::FETCH_ASSOC )) { ?>
                     <?php
                 // 6 SUPPRESSION D'UNE CATEGORY
                 // debug($_GET);
@@ -47,13 +47,12 @@ require_once 'includes/sidebar.php';
                         <td><?php echo $category['name']; ?></td>
                         <td><a href="edit_category.php?category_id=<?php echo $category['category_id']; ?>">Modifier</a>
                             <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer?')" href="?action=supprimer&category_id=<?php echo $category['category_id']; ?>">Supprimer</a></td>
+                            <?php   } ?>
                     </tr>
                 </tbody>
             </table>
         </div>
                 <!-- fermeture de la boucle -->
-            <?php   }
-            ?>
     </div>
 </div>
 <script type="text/javascript">
