@@ -1,9 +1,9 @@
 <?php
 // 1-Variables de connexion à la BDD
 $host = 'localhost';// le chemin vers le serveur de données
-$database = 'php_blog';// le nom de la BDD
-$user = 'root';// le nom d'utilisateur pour se connecter
-$psw = '';// mdp PC XAMPP
+$database = 'u643944377_blog';// le nom de la BDD
+$user = 'u643944377_soutenance';// le nom d'utilisateur pour se connecter
+$psw = 'Soutenance_GUARDIA92';// mdp PC XAMPP
 
 // Retourne une instance de PDO. La signature de la fonction getInstancePDO implique que l'objet doit être nécessairement de type PDO
 // Sinon une erreur sera levée

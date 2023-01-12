@@ -1,6 +1,14 @@
 <?php
+
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 require_once "includes/header.php";
 // require_once "includes/recaptcha.php";
+require_once "includes/phpmailer/Exception.php";
+require_once "includes/phpmailer/PHPMailer.php";
+require_once "includes/phpmailer/SMTP.php";
 
 
 // TRAITEMENT DU FORMULAIRE DU CONTACT
@@ -43,27 +51,64 @@ if (!empty($_POST)) {
 
 
         // adapter la requete en fonction de la bdd
-        $contact = executeRequete(
-            " INSERT INTO  contact (name, subject, email, message) VALUES (:name, :subject, :email, :message)",
+        $contact = executeRequete(" INSERT INTO  contact (name, subject, email, message) VALUES (:name, :subject, :email, :message)",
 
             array(
                 ':name' => $_POST['name'],
                 ':subject' => $_POST['subject'],
                 ':email' => $_POST['email'],
                 ':message' => $_POST['message'],
-            )
-        );
-
-        $confirmation .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Votre message à bien été envoyé</div>';
-
-    } else {
-
-        $confirmation .= '<div class="fw-bolder text-center comments" style="background-color: #dc3545; border-radius: 8px; margin: 10px; padding: 10px;">Erreur lors de l\'envoi du message</div>';
-    }
+            ));
 
 
+            if ($contact) {
+                $confirmation .='<div class="alert alert-success">Votre Message a bien été envoyé, nous vous répondrons sous 48 heures</div>  ';
+            } else {
+                $confirmation .='<div class="alert alert-danger">Erreur lors de l\'envoi du message !</div>';
+            }
+
+            if ($contact) {
+
+                $mail = new PHPMailer(true);
+                $mailPOST = $_POST['email'];
+                $namePOST = $_POST['name'];
+
+                
+                    // configuration 
+
+                    // On configure le SMTP
+                    // $mail->isSMTP();
+                    $mail->Host = "smtp.hostinger.com";
+                    $mail->Port = 465;
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'soutenance@sleyter.net';
+                    $mail->Password = 'Guardia92*';
+
+                    // Encodage
+                    $mail->CharSet = "utf-8";
+
+                    // Destinataire
+                    $mail->addAddress($mailPOST);
+
+                    // Expediteur
+                    $mail->setFrom("soutenance@sleyter.net");
+
+                    // Contenu du mail
+                    $mail->Subject = "Nous avons bien reçu votre message";
+                    $mail->Body = "Cher(e) $namePOST,
+
+                    Nous avons bien reçu votre message de contact via notre formulaire en ligne. Nous vous remercions de votre intérêt pour notre blog. Nous allons étudier votre message avec attention et nous reviendrons vers vous dès que possible. Si vous avez fourni des informations de contact, nous vous répondrons via ces moyens. Sinon, nous utiliserons l'adresse email que vous avez fournie sur le formulaire.
+
+                    Si vous avez des questions urgentes ou si vous souhaitez nous fournir des informations supplémentaires, n'hésitez pas à nous contacter directement à l'adresse suivante : soutenance@sleyter.net.
+                    Nous espérons avoir de vos nouvelles prochainement.        
+                    Cordialement,";
+
+                    // envoi
+                    $mail->send();
+
+            }        
+   }
 }
-
 ?>
 
 
@@ -137,7 +182,6 @@ if (!empty($_POST)) {
                         </form>
                     </div>
                 </div>
-            <div class="g-recaptcha" data-sitekey="<?php // echo reCAPTCHAfront ?>"></div>
             </div>
             <?php echo $confirmation, $erreur; ?>
         </div>

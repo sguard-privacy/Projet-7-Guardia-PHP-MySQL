@@ -3,8 +3,6 @@
 require_once "includes/bdd.php";
 require_once "includes/fonction.php";
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
 
 ?>
 <!DOCTYPE html>
@@ -71,9 +69,9 @@ ini_set("display_errors", 1);
                                 <li class="nav-item"><a class="nav-link" href="index.php">Accueil</a></li>
                                 <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
                                 <?php If(estConnecte()){ ?>
-                                    <li class="nav-item"><a class="nav-link" href="../soutenancephp/admin/index.php">Espace Admin</a></li>  
+                                    <li class="nav-item"><a class="nav-link" href="admin/index.php">Espace Admin</a></li>  
                                 <?php } else { ?>
-                                <li class="nav-item"><a class="nav-link" href="../soutenancephp/admin/login.php">Connexion</a></li>    
+                                <li class="nav-item"><a class="nav-link" href="admin/login.php">Connexion</a></li>    
                                 <?php } ?>
                             </ul>
                         </div>
