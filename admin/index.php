@@ -42,12 +42,12 @@ $contact = $requete->rowCount();
                         </div>
                     </li>
                     <hr>
+                    <?php } ?>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<?php } ?>
  </div>
     </div>
   </div>

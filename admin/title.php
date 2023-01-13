@@ -34,11 +34,26 @@ require_once 'includes/sidebar.php';
 
                 $_POST['title'] = htmlspecialchars($_POST['title']);// pour se prémunir des failles et des faille XSS
             
-                $logo = '';
-                if(!empty($_FILES['logo']['name'])) {
-                   $logo = 'uploads/' .$_FILES['logo']['name'];
-                   copy($_FILES['logo']['tmp_name'], '' .$logo);
-                   } // fin du traitement photo
+                $upload_name = $_FILES['logo']['name'];
+                $upload_ext = substr($upload_name, strrpos($upload_name, '.') + 1);
+                $upload_size = $_FILES['logo']['size'];
+    
+                if (($upload_ext == "jpg" || $upload_ext == "JPG" || $upload_ext == "jpeg" || $upload_ext == "JPEG" || $upload_ext == "png" || $upload_ext == "PNG") && ($upload_size < 1848567)) {
+    
+    
+                    $logo = '';
+                     if(!empty($_FILES['logo']['name'])) {
+                        $logo = 'uploads/' .$_FILES['logo']['name'];
+                        copy($_FILES['logo']['tmp_name'], '' .$logo);
+                        } 
+    
+    
+                    if (!move_uploaded_file($_FILES['logo']['tmp_name'], $logo)) {
+                        $erreur .='<div class="alert alert-warning">Seul les images au format jpeg, jpg, png et 1 Mo de taille sont autorisées</div>';
+                    }
+    
+                }
+    
 
                 $resultat = $pdoBLOG->prepare( " UPDATE title SET title = :title, logo = :logo " );// requete préparée avec des marqueurs
             
@@ -80,7 +95,7 @@ require_once 'includes/sidebar.php';
                             echo "<label>Télécharger le logo</label>";
                         echo "</td>";
                         echo "<td>";
-                            echo "<input type=\"file\" name=\"logo\" accept=\"image/png, image/jpeg, image/jpg\"/>";
+                            echo "<input type=\"file\" name=\"logo\" />";
                         echo "</td>";
                     echo "</tr>";
                     echo "<tr>";

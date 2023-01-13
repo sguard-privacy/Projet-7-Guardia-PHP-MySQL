@@ -26,6 +26,7 @@ require_once 'includes/sidebar.php';
             $contenu .='<div class="alert alert-warning">Le Tags doit faire entre 2 et 15 caractères</div>';
         }
 
+
         if (empty($contenu)) {
 
         $_POST['title'] = htmlspecialchars($_POST['title']);
@@ -33,12 +34,34 @@ require_once 'includes/sidebar.php';
         $_POST['author'] = htmlspecialchars($_POST['author']);
         $_POST['tags'] = htmlspecialchars($_POST['tags']);
 
-    
-        $image = '';
-         if(!empty($_FILES['image']['name'])) {
-            $image = 'uploads/' .$_FILES['image']['name'];
-            copy($_FILES['image']['tmp_name'], '' .$image);
-            } // fin du traitement photo
+
+
+
+
+
+            $upload_name = $_FILES['image']['name'];
+            $upload_ext = substr($upload_name, strrpos($upload_name, '.') + 1);
+            $upload_size = $_FILES['image']['size'];
+
+            if (($upload_ext == "jpg" || $upload_ext == "JPG" || $upload_ext == "jpeg" || $upload_ext == "JPEG" || $upload_ext == "png" || $upload_ext == "PNG") && ($upload_size < 1848567)) {
+
+
+                $image = '';
+                 if(!empty($_FILES['image']['name'])) {
+                    $image = 'uploads/' .$_FILES['image']['name'];
+                    copy($_FILES['image']['tmp_name'], '' .$image);
+                    } 
+
+
+                if (!move_uploaded_file($_FILES['image']['tmp_name'], $image)) {
+                    $erreur .='<div class="alert alert-warning">Seul les images au format jpeg, jpg, png et 1 Mo de taille sont autorisées</div>';
+                }
+
+            }
+
+        
+
+
      
         $newpost = executeRequete(" INSERT INTO post (title, body, author, tags, category_id, image) VALUES (:title, :body, :author, :tags, :category_id, :image) ",
     
@@ -125,7 +148,7 @@ require_once 'includes/sidebar.php';
                         <td></td>
                         <td>
                             <input type="submit" name="submit" Value="Sauvegarder" />
-                            <?php echo $confirmation, $contenu; ?>
+                            <?php echo $confirmation, $contenu, $erreur; ?>
                         </td>
                     </tr>
                 </table>
