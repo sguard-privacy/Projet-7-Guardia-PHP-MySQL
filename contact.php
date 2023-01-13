@@ -38,10 +38,24 @@ if (!empty($_POST)) {
     if (empty($erreur)) {
 
 
+
+        // Protection XSS et SQL
+
         $_POST['name'] = htmlspecialchars($_POST['name']);
         $_POST['subject'] = htmlspecialchars($_POST['subject']);
         $_POST['email'] = htmlspecialchars($_POST['email']);
         $_POST['message'] = htmlspecialchars($_POST['message']);
+
+        $_POST['name'] = stripslashes($_POST['name']);
+        $_POST['subject'] = stripslashes($_POST['subject']);
+        $_POST['email'] = stripslashes($_POST['email']);
+        $_POST['message'] = stripslashes($_POST['message']);
+
+        $_POST['name'] = trim($_POST['name']);
+        $_POST['subject'] = trim($_POST['subject']);
+        $_POST['email'] = trim($_POST['email']);
+        $_POST['message'] = trim($_POST['message']);
+
 
 
         // adapter la requete en fonction de la bdd
