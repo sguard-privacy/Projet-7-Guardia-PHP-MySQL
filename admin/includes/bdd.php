@@ -14,7 +14,19 @@ array(
 ));
 // 2- OUVERTURE DE SESSION
 session_start();
-// Informations de la session passées en variables
+
+// CRSF
+// if(!isset($_SESSION['jeton']['jeton_time'])) {
+//     $_SESSION['jeton'] = bin2hex(random_bytes(32));
+//     $_SESSION['jeton_time'] = time();
+
+//     if (time() - $_SESSION['jeton_time'] < 3600) {
+//         // Le jeton de session est valide
+//       } else {
+//         // Le jeton de session a expiré, générez un nouveau jeton
+//         $_SESSION['jeton'] = bin2hex(random_bytes(32));
+//         $_SESSION['jeton_time'] = time();
+//     }
 
 
 

@@ -42,23 +42,5 @@ function estConnecte() {
     }
 }
 
-// FONCTION POUR VÉRIFIER QUE LE MEMBRE EST ADMIN
-// function estAdmin() {
-//     if (estConnecte() && $_SESSION['membre']['admin']== 1 ) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
-
-// // FONCTION POUR VÉRIFIER QUE LE MEMBRE EST SUPER ADMIN
-// function estSuperAdmin() {
-//     if (estConnecte() && $_SESSION['membre']['admin']== 2 ) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
-
 
 ?>
